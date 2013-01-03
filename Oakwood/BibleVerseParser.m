@@ -18,7 +18,7 @@ NSMutableArray *verses;
 
 - (NSMutableArray *)parseXMLFile:(NSString *)pathToFile {
     
-     NSLog(@"Inside parseXMLFile");
+     //NSLog(@"Inside parseXMLFile");
     
     BOOL success;
 
@@ -29,14 +29,14 @@ NSMutableArray *verses;
     
     NSURL *xmlURL = [NSURL URLWithString: pathToFile];
     
-    NSLog(@"xmlURL is: %@", xmlURL);
+    //NSLog(@"xmlURL is: %@", xmlURL);
     
     //if (bibleVerseParser) // bibleVerseParser is an NSXMLParser instance variable
         bibleVerseParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
     
     verses = [[NSMutableArray alloc] init];
     
-    NSLog(@"bibleVerseParser is %@", bibleVerseParser);
+   // NSLog(@"bibleVerseParser is %@", bibleVerseParser);
     
     //
     [bibleVerseParser setDelegate:self];
@@ -47,8 +47,8 @@ NSMutableArray *verses;
     
     success = [bibleVerseParser parse];
     
-    NSLog(@"Finishing parseXMLFile, success?: %d", success);
-    NSLog(@"Bible Verse content: %@", verses);
+    //NSLog(@"Finishing parseXMLFile, success?: %d", success);
+    //NSLog(@"Bible Verse content: %@", verses);
     firstTimeMonday = true;
     return verses;
 }
@@ -110,9 +110,9 @@ NSMutableArray *verses;
                     NSString *scriptureUrlReference = [[[[parsedDayElement componentsSeparatedByString:@">"] objectAtIndex:1] componentsSeparatedByString:@"</"] objectAtIndex:0];
                     
                     //Remove whitespace
-                    NSLog(@"DAY OF WEEK: %@", dayOfWeek);
-                    NSLog(@"Url: %@", scriptureUrl);
-                    NSLog(@"Reference: %@", scriptureUrlReference);
+                    //NSLog(@"DAY OF WEEK: %@", dayOfWeek);
+                    //NSLog(@"Url: %@", scriptureUrl);
+                    //NSLog(@"Reference: %@", scriptureUrlReference);
                     
                     //Populate Bible Verse Details
                     [bvd setDayOfWeek:dayOfWeek];

@@ -23,6 +23,8 @@
     NSArray *imgItems;
 }
 
+UIActivityIndicatorView *spinner;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -56,7 +58,6 @@
     cell.textLabel.text = [navItems objectAtIndex:indexPath.row];
     
     NSString *image = [imgItems objectAtIndex:indexPath.row];
-//    cell.imageView.image = [UIImage imageNamed:@"scripture.png"];
     cell.imageView.image = [UIImage imageNamed:image];
 
     return cell;
@@ -64,7 +65,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
+    //This isn't displaying properly...
+    
+    //Try to add activity indicator...
+
+    [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
+
+    //[spinner setCenter:CGPointMake(kScreenWidth/2.0, kScreenHeight/2.0)]; // I do this because I'm in landscape mode
+
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+
     
     if ([@"How to find us" isEqualToString:([navItems objectAtIndex:indexPath.row])])
         {
@@ -101,8 +113,20 @@
             NSLog(@"invalid selection: %@", [navItems objectAtIndex:indexPath.row]);
         }
     
+    [spinner stopAnimating];
+    
     
         //Do I need to release the controllers?
+}
+
+-(void) threadStartAnimating: (id) data
+{
+    NSLog(@"threadStartAnimating begin");
+    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [spinner setCenter:self.view.center];
+    [self.view addSubview:spinner]; // spinner is not visible until started
+        [spinner startAnimating];
+    NSLog(@"threadStartAnimating end");
 }
 
 
