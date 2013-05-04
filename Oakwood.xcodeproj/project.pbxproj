@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C196EFE171B67E9002B250F /* ColorConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C196EFD171B67E9002B250F /* ColorConverter.m */; };
 		0C2EBB7B167AB90E00B32013 /* BibleVerseDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2EBB7A167AB90E00B32013 /* BibleVerseDetails.m */; };
+		0C32D5311718C39000F54E63 /* CalendarDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C32D5301718C39000F54E63 /* CalendarDetails.m */; };
+		0C32D5351719CCD700F54E63 /* how_to_find_us_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C32D5341719CCD700F54E63 /* how_to_find_us_btn.png */; };
+		0C32D537171AE3F400F54E63 /* sermons_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C32D536171AE3F400F54E63 /* sermons_btn.png */; };
+		0C32D53B171AE64E00F54E63 /* bible_verses_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C32D53A171AE64E00F54E63 /* bible_verses_btn.png */; };
+		0C32D53F171AEC9C00F54E63 /* eRay_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C32D53E171AEC9C00F54E63 /* eRay_btn.png */; };
 		0C5AB2BD1690E9AC00169118 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C5AB2BC1690E9AC00169118 /* MediaPlayer.framework */; };
 		0C65DA2A165687450040A383 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C65DA29165687450040A383 /* UIKit.framework */; };
 		0C65DA2C165687450040A383 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C65DA2B165687450040A383 /* Foundation.framework */; };
@@ -23,6 +29,7 @@
 		0C7355E2166B90B500163A78 /* BibleVersesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7355E0166B90B500163A78 /* BibleVersesViewController.m */; };
 		0C7355E3166B90B500163A78 /* BibleVersesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C7355E1166B90B500163A78 /* BibleVersesViewController.xib */; };
 		0C7355E6166BA22700163A78 /* BibleVerseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7355E5166BA22700163A78 /* BibleVerseParser.m */; };
+		0C7F98C01695E826006395B0 /* CalendarParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7F98BF1695E826006395B0 /* CalendarParser.m */; };
 		0C829988165C02F800C3482E /* oakwoodapp_57.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C829987165C02F800C3482E /* oakwoodapp_57.png */; };
 		0C82998A165C034E00C3482E /* scripture.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C829989165C034E00C3482E /* scripture.png */; };
 		0C82998C165C045700C3482E /* sermon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C82998B165C045700C3482E /* sermon.png */; };
@@ -31,23 +38,28 @@
 		0C829994165C0BDE00C3482E /* address.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C829993165C0BDE00C3482E /* address.png */; };
 		0C82999E165C755800C3482E /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C82999D165C755800C3482E /* CalendarViewController.m */; };
 		0CB115BD16624E70008425A5 /* FindUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB115BB16624E70008425A5 /* FindUsViewController.m */; };
-		0CB115BE16624E70008425A5 /* FindUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CB115BC16624E70008425A5 /* FindUsViewController.xib */; };
 		0CB115C116625463008425A5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CB115C016625463008425A5 /* MapKit.framework */; };
 		0CB115C816625FBE008425A5 /* OakwoodLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB115C716625FBE008425A5 /* OakwoodLocation.m */; };
 		0CB1C1B816892EB100D36A95 /* SermonAudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB1C1B616892EB100D36A95 /* SermonAudioViewController.m */; };
-		0CB1C1B916892EB100D36A95 /* SermonAudioViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1C1B716892EB100D36A95 /* SermonAudioViewController.xib */; };
 		0CCF68B7167F9F4200D1FCE3 /* ERayParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF68B6167F9F4200D1FCE3 /* ERayParser.m */; };
 		0CCF68BF167FA1D800D1FCE3 /* ERayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF68BD167FA1D800D1FCE3 /* ERayViewController.m */; };
-		0CCF68C0167FA1D800D1FCE3 /* ERayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CCF68BE167FA1D800D1FCE3 /* ERayViewController.xib */; };
 		0CCF68C4167FCD2200D1FCE3 /* SermonSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF68C2167FCD2200D1FCE3 /* SermonSelectionViewController.m */; };
-		0CCF68C5167FCD2200D1FCE3 /* SermonSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CCF68C3167FCD2200D1FCE3 /* SermonSelectionViewController.xib */; };
 		0CCF68C8167FDDD000D1FCE3 /* SermonSelectionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF68C7167FDDD000D1FCE3 /* SermonSelectionParser.m */; };
+		0CD26EA917223B9200B32AE8 /* BibleVersesWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD26EA817223B9200B32AE8 /* BibleVersesWebViewController.m */; };
 		0CF268841682AF17005CA2FE /* SermonDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF268831682AF17005CA2FE /* SermonDetails.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C196EFC171B67E8002B250F /* ColorConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorConverter.h; sourceTree = "<group>"; };
+		0C196EFD171B67E9002B250F /* ColorConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorConverter.m; sourceTree = "<group>"; };
 		0C2EBB79167AB90E00B32013 /* BibleVerseDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BibleVerseDetails.h; sourceTree = "<group>"; };
 		0C2EBB7A167AB90E00B32013 /* BibleVerseDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BibleVerseDetails.m; sourceTree = "<group>"; };
+		0C32D52F1718C39000F54E63 /* CalendarDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDetails.h; sourceTree = "<group>"; };
+		0C32D5301718C39000F54E63 /* CalendarDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDetails.m; sourceTree = "<group>"; };
+		0C32D5341719CCD700F54E63 /* how_to_find_us_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = how_to_find_us_btn.png; sourceTree = "<group>"; };
+		0C32D536171AE3F400F54E63 /* sermons_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sermons_btn.png; path = Oakwood/sermons_btn.png; sourceTree = "<group>"; };
+		0C32D53A171AE64E00F54E63 /* bible_verses_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bible_verses_btn.png; sourceTree = "<group>"; };
+		0C32D53E171AEC9C00F54E63 /* eRay_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eRay_btn.png; sourceTree = "<group>"; };
 		0C5AB2BC1690E9AC00169118 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		0C65DA25165687450040A383 /* Oakwood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Oakwood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C65DA29165687450040A383 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -70,6 +82,8 @@
 		0C7355E1166B90B500163A78 /* BibleVersesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BibleVersesViewController.xib; sourceTree = "<group>"; };
 		0C7355E4166BA22700163A78 /* BibleVerseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BibleVerseParser.h; sourceTree = "<group>"; };
 		0C7355E5166BA22700163A78 /* BibleVerseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BibleVerseParser.m; sourceTree = "<group>"; };
+		0C7F98BE1695E826006395B0 /* CalendarParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarParser.h; sourceTree = "<group>"; };
+		0C7F98BF1695E826006395B0 /* CalendarParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarParser.m; sourceTree = "<group>"; };
 		0C829987165C02F800C3482E /* oakwoodapp_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = oakwoodapp_57.png; sourceTree = "<group>"; };
 		0C829989165C034E00C3482E /* scripture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scripture.png; sourceTree = "<group>"; };
 		0C82998B165C045700C3482E /* sermon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sermon.png; sourceTree = "<group>"; };
@@ -80,24 +94,22 @@
 		0C82999D165C755800C3482E /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		0CB115BA16624E70008425A5 /* FindUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindUsViewController.h; sourceTree = "<group>"; };
 		0CB115BB16624E70008425A5 /* FindUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindUsViewController.m; sourceTree = "<group>"; };
-		0CB115BC16624E70008425A5 /* FindUsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindUsViewController.xib; sourceTree = "<group>"; };
 		0CB115C016625463008425A5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0CB115C616625FBE008425A5 /* OakwoodLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OakwoodLocation.h; sourceTree = "<group>"; };
 		0CB115C716625FBE008425A5 /* OakwoodLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OakwoodLocation.m; sourceTree = "<group>"; };
 		0CB1C1B516892EB000D36A95 /* SermonAudioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SermonAudioViewController.h; sourceTree = "<group>"; };
 		0CB1C1B616892EB100D36A95 /* SermonAudioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SermonAudioViewController.m; sourceTree = "<group>"; };
-		0CB1C1B716892EB100D36A95 /* SermonAudioViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SermonAudioViewController.xib; sourceTree = "<group>"; };
 		0CB1C1BA168932BD00D36A95 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0CCF68B5167F9F4200D1FCE3 /* ERayParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ERayParser.h; sourceTree = "<group>"; };
 		0CCF68B6167F9F4200D1FCE3 /* ERayParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ERayParser.m; sourceTree = "<group>"; };
 		0CCF68BC167FA1D800D1FCE3 /* ERayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ERayViewController.h; sourceTree = "<group>"; };
 		0CCF68BD167FA1D800D1FCE3 /* ERayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ERayViewController.m; sourceTree = "<group>"; };
-		0CCF68BE167FA1D800D1FCE3 /* ERayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ERayViewController.xib; sourceTree = "<group>"; };
 		0CCF68C1167FCD2200D1FCE3 /* SermonSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SermonSelectionViewController.h; sourceTree = "<group>"; };
 		0CCF68C2167FCD2200D1FCE3 /* SermonSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SermonSelectionViewController.m; sourceTree = "<group>"; };
-		0CCF68C3167FCD2200D1FCE3 /* SermonSelectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SermonSelectionViewController.xib; sourceTree = "<group>"; };
 		0CCF68C6167FDDD000D1FCE3 /* SermonSelectionParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SermonSelectionParser.h; sourceTree = "<group>"; };
 		0CCF68C7167FDDD000D1FCE3 /* SermonSelectionParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SermonSelectionParser.m; sourceTree = "<group>"; };
+		0CD26EA717223B9200B32AE8 /* BibleVersesWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BibleVersesWebViewController.h; sourceTree = "<group>"; };
+		0CD26EA817223B9200B32AE8 /* BibleVersesWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BibleVersesWebViewController.m; sourceTree = "<group>"; };
 		0CF268821682AF17005CA2FE /* SermonDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SermonDetails.h; sourceTree = "<group>"; };
 		0CF268831682AF17005CA2FE /* SermonDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SermonDetails.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,6 +142,10 @@
 				0C82998D165C045F00C3482E /* eray.png */,
 				0C82998F165C046500C3482E /* calendar.png */,
 				0C829993165C0BDE00C3482E /* address.png */,
+				0C32D5341719CCD700F54E63 /* how_to_find_us_btn.png */,
+				0C32D536171AE3F400F54E63 /* sermons_btn.png */,
+				0C32D53A171AE64E00F54E63 /* bible_verses_btn.png */,
+				0C32D53E171AEC9C00F54E63 /* eRay_btn.png */,
 				0C65DA2F165687450040A383 /* Oakwood */,
 				0C65DA28165687450040A383 /* Frameworks */,
 				0C65DA26165687450040A383 /* Products */,
@@ -159,6 +175,8 @@
 			children = (
 				0C65DA38165687450040A383 /* AppDelegate.h */,
 				0C65DA39165687450040A383 /* AppDelegate.m */,
+				0CD26EA717223B9200B32AE8 /* BibleVersesWebViewController.h */,
+				0CD26EA817223B9200B32AE8 /* BibleVersesWebViewController.m */,
 				0C7355DF166B90B500163A78 /* BibleVersesViewController.h */,
 				0C7355E0166B90B500163A78 /* BibleVersesViewController.m */,
 				0C7355E1166B90B500163A78 /* BibleVersesViewController.xib */,
@@ -168,26 +186,28 @@
 				0C7355E5166BA22700163A78 /* BibleVerseParser.m */,
 				0C82999C165C755800C3482E /* CalendarViewController.h */,
 				0C82999D165C755800C3482E /* CalendarViewController.m */,
+				0C7F98BE1695E826006395B0 /* CalendarParser.h */,
+				0C7F98BF1695E826006395B0 /* CalendarParser.m */,
+				0C32D52F1718C39000F54E63 /* CalendarDetails.h */,
+				0C32D5301718C39000F54E63 /* CalendarDetails.m */,
 				0CCF68BC167FA1D800D1FCE3 /* ERayViewController.h */,
 				0CCF68BD167FA1D800D1FCE3 /* ERayViewController.m */,
-				0CCF68BE167FA1D800D1FCE3 /* ERayViewController.xib */,
 				0CCF68B5167F9F4200D1FCE3 /* ERayParser.h */,
 				0CCF68B6167F9F4200D1FCE3 /* ERayParser.m */,
 				0CB115BA16624E70008425A5 /* FindUsViewController.h */,
 				0CB115BB16624E70008425A5 /* FindUsViewController.m */,
-				0CB115BC16624E70008425A5 /* FindUsViewController.xib */,
 				0CB115C616625FBE008425A5 /* OakwoodLocation.h */,
 				0CB115C716625FBE008425A5 /* OakwoodLocation.m */,
 				0CCF68C1167FCD2200D1FCE3 /* SermonSelectionViewController.h */,
 				0CCF68C2167FCD2200D1FCE3 /* SermonSelectionViewController.m */,
-				0CCF68C3167FCD2200D1FCE3 /* SermonSelectionViewController.xib */,
 				0CCF68C6167FDDD000D1FCE3 /* SermonSelectionParser.h */,
 				0CCF68C7167FDDD000D1FCE3 /* SermonSelectionParser.m */,
 				0CF268821682AF17005CA2FE /* SermonDetails.h */,
 				0CF268831682AF17005CA2FE /* SermonDetails.m */,
 				0CB1C1B516892EB000D36A95 /* SermonAudioViewController.h */,
 				0CB1C1B616892EB100D36A95 /* SermonAudioViewController.m */,
-				0CB1C1B716892EB100D36A95 /* SermonAudioViewController.xib */,
+				0C196EFC171B67E8002B250F /* ColorConverter.h */,
+				0C196EFD171B67E9002B250F /* ColorConverter.m */,
 				0C65DA44165687450040A383 /* ViewController.h */,
 				0C65DA45165687450040A383 /* ViewController.m */,
 				0C65DA41165687450040A383 /* MainStoryboard.storyboard */,
@@ -272,11 +292,11 @@
 				0C82998E165C045F00C3482E /* eray.png in Resources */,
 				0C829990165C046500C3482E /* calendar.png in Resources */,
 				0C829994165C0BDE00C3482E /* address.png in Resources */,
-				0CB115BE16624E70008425A5 /* FindUsViewController.xib in Resources */,
 				0C7355E3166B90B500163A78 /* BibleVersesViewController.xib in Resources */,
-				0CCF68C0167FA1D800D1FCE3 /* ERayViewController.xib in Resources */,
-				0CCF68C5167FCD2200D1FCE3 /* SermonSelectionViewController.xib in Resources */,
-				0CB1C1B916892EB100D36A95 /* SermonAudioViewController.xib in Resources */,
+				0C32D5351719CCD700F54E63 /* how_to_find_us_btn.png in Resources */,
+				0C32D537171AE3F400F54E63 /* sermons_btn.png in Resources */,
+				0C32D53B171AE64E00F54E63 /* bible_verses_btn.png in Resources */,
+				0C32D53F171AEC9C00F54E63 /* eRay_btn.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +322,10 @@
 				0CCF68C8167FDDD000D1FCE3 /* SermonSelectionParser.m in Sources */,
 				0CF268841682AF17005CA2FE /* SermonDetails.m in Sources */,
 				0CB1C1B816892EB100D36A95 /* SermonAudioViewController.m in Sources */,
+				0C7F98C01695E826006395B0 /* CalendarParser.m in Sources */,
+				0C32D5311718C39000F54E63 /* CalendarDetails.m in Sources */,
+				0C196EFE171B67E9002B250F /* ColorConverter.m in Sources */,
+				0CD26EA917223B9200B32AE8 /* BibleVersesWebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,9 +373,12 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = /usr/local/include;
 			};
 			name = Debug;
 		};
@@ -370,9 +397,12 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = /usr/local/include;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -382,8 +412,20 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Oakwood/Oakwood-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/usr/local/libical/include,
+				);
 				INFOPLIST_FILE = "Oakwood/Oakwood-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					/usr/local/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = /usr/local/include;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -393,8 +435,20 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Oakwood/Oakwood-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/usr/local/libical/include,
+				);
 				INFOPLIST_FILE = "Oakwood/Oakwood-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					/usr/local/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = /usr/local/include;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
