@@ -21,17 +21,17 @@ SermonDetails *sd;
     
     BOOL success;
     
-    NSLog(@"inside SermonSelectionParser parseXMLFile: %@", url);
+    //NSLog(@"inside SermonSelectionParser parseXMLFile: %@", url);
     
     NSURL *xmlURL = [NSURL URLWithString: url];
     
-    NSLog(@"xmlURL is: %@", xmlURL);
+    //NSLog(@"xmlURL is: %@", xmlURL);
     
     sermonSelectionParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
     
     sermons = [[NSMutableArray alloc] init];
     
-    NSLog(@"sermonSelectionParser is %@", sermonSelectionParser);
+    //NSLog(@"sermonSelectionParser is %@", sermonSelectionParser);
     
     //
     [sermonSelectionParser setDelegate:self];
@@ -42,7 +42,7 @@ SermonDetails *sd;
     
     success = [sermonSelectionParser parse];
     
-    NSLog(@"Finishing parseXMLFile, success?: %d", success);
+    //NSLog(@"Finishing parseXMLFile, success?: %d", success);
     //NSLog(@"Bible Verse content: %@", verses);
     
     return sermons;
@@ -67,7 +67,7 @@ SermonDetails *sd;
     {
         
         NSString *sermonUrl = [attributeDict objectForKey:@"url"];
-        NSLog(@"sermonUrl: %@", sermonUrl);
+        //NSLog(@"sermonUrl: %@", sermonUrl);
         [sd setSermonUrl:sermonUrl];
         [sermons addObject:sd];
     }
@@ -79,25 +79,25 @@ SermonDetails *sd;
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-	NSString * errorString = [NSString stringWithFormat:@"Unable to download feed from web site (Error code %i )", [parseError code]];
+	NSString * errorString = [NSString stringWithFormat:@"Unable to retrieve sermons.  Please try again later."];
 	NSLog(@"error parsing XML: %@", errorString);
     
-	//UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error loading content" message:errorString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	//[errorAlert show];
+	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error loading content" message:errorString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	[errorAlert show];
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)unparsedString{
 	
     if(insideItem)
     {
-        NSLog(@"found characters inside item: %@", unparsedString);
+        //NSLog(@"found characters inside item: %@", unparsedString);
         
         
         //insideItem = true;
   
         if (insideTitle)
         {
-            NSLog(@"found characters inside title: %@", unparsedString);
+            //NSLog(@"found characters inside title: %@", unparsedString);
             
             
             //
@@ -130,7 +130,7 @@ SermonDetails *sd;
 - (void)parserDidEndDocument:(NSXMLParser *)parser {
     
     
-	NSLog(@"all done!");
+	//NSLog(@"all done!");
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{

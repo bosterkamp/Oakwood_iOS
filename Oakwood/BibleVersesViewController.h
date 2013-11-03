@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BibleVerseParser.h"
 
-@interface BibleVersesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
+@interface BibleVersesViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>{
     UITextView *display;
     NSMutableString *displayString;
     NSArray *tableData;

@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SermonSelectionViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface SermonSelectionViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UIWebViewDelegate>
 {
     NSArray *tableData;
+    UIWebView *webView;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 
-@interface SermonAudioViewController : UIViewController
+@interface SermonAudioViewController : UIViewController <UIWebViewDelegate>
 {
 
+    UIWebView *webView;
 }
 
 //Need to retain the MPMoviePlayerController, so setting the controller to strong.
-@property (nonatomic, strong) MPMoviePlayerController *controller;
+//@property (nonatomic, strong) MPMoviePlayerController *controller;
 
 @property         NSString *launchUrl;
 

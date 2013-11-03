@@ -8,6 +8,7 @@
 
 #import "ERayViewController.h"
 #import "ERayParser.h"
+#import "ColorConverter.h"
 
 @interface ERayViewController ()
 
@@ -30,7 +31,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    NSLog(@"inside ERayViewController");
+    //NSLog(@"inside ERayViewController");
     self.navigationItem.title = @"eRay";
     
     ERayParser *myParser = [[ERayParser alloc] init];
@@ -38,6 +39,8 @@
     
     //NSLog(@"inside ERayViewController: %@", eRay);
     
+    [self.webUIView setBackgroundColor: [ColorConverter colorFromHexString:@"#FFFFFF"]];
+    [self.webUIView setOpaque: NO];
     [self.webUIView loadHTMLString: eRay baseURL:nil];
     
 }

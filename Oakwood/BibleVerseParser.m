@@ -59,19 +59,19 @@ NSMutableArray *verses;
 
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser {
-	NSLog(@"found file and started parsing");
+	//NSLog(@"found file and started parsing");
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-	NSString * errorString = [NSString stringWithFormat:@"Unable to download story feed from web site (Error code %i )", [parseError code]];
+	NSString * errorString = [NSString stringWithFormat:@"Unable to retrieve bible verses.  Please try again later."];
 	NSLog(@"error parsing XML: %@", errorString);
     
-	//UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error loading content" message:errorString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	//[errorAlert show];
+	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error loading content" message:errorString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	[errorAlert show];
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)unparsedString{
-	//NSLog(@"found characters: %@", string);
+	//NSLog(@"found characters: %@", unparsedString);
     
     NSRange range = [unparsedString rangeOfString : searchForMe];
     
@@ -87,6 +87,9 @@ NSMutableArray *verses;
         //Iterate over all the elements in the fields (parsed out by <p>)
         for (NSString *parsedParagraphElement in parsedParagraphs)
         {
+            
+            //NSLog(@"Parsed Data: %@", parsedParagraphElement);
+            
             //We need to find Monday again, since we're searching within multiple fields parsed out with <p> tags.
             NSRange mondayFinder = [parsedParagraphElement rangeOfString : searchForMe];
             
@@ -148,7 +151,7 @@ NSMutableArray *verses;
 - (void)parserDidEndDocument:(NSXMLParser *)parser {
     
     
-	NSLog(@"all done!");
+	//NSLog(@"all done!");
 }
 
 

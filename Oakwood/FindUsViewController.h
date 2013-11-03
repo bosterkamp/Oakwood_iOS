@@ -12,9 +12,13 @@
 #define METERS_PER_MILE 1609.344
 
 @interface FindUsViewController : UIViewController <MKMapViewDelegate>
+{
+    UITextView *findUsText;
+}
+@property (strong, nonatomic) IBOutlet UIView *findUsWindow;
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (weak, nonatomic) IBOutlet MKMapView *_mapView;
+@property(nonatomic,retain) UITextView *findUsText;
 
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @end

@@ -8,6 +8,8 @@
 
 #import "BibleVersesViewController.h"
 #import "BibleVerseDetails.h"
+#import "ColorConverter.h"
+#import "BibleVersesWebViewController.h"
 
 
 @interface BibleVersesViewController ()
@@ -27,6 +29,7 @@ UIActivityIndicatorView *spinner;
     if (self) {
         // Custom initialization
     }
+    
     return self;
 }
 
@@ -34,8 +37,12 @@ UIActivityIndicatorView *spinner;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    NSLog(@"inside BibleVersesViewController");
+    //NSLog(@"inside BibleVersesViewController");
     self.navigationItem.title = @"Bible Verses";
+    [self.tableView setBackgroundColor: [ColorConverter colorFromHexString:@"#FFFFFF"]];
+    [self.tableView setOpaque: NO];
+    
+
     
     myParser = [[BibleVerseParser alloc] init];
 
@@ -86,22 +93,12 @@ UIActivityIndicatorView *spinner;
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     BibleVerseDetails *bvd = [tableData objectAtIndex:indexPath.row];
     
-    //TODO May want to load this in a new controller, to be able to manage it separately...
-    
-    //Change self.view.bounds to a smaller CGRect if you don't want it to take up the whole screen
-    webUIView = [[UIWebView alloc] initWithFrame:self.view.bounds];
-    
-    //UIWebView *webUIView = [[UIWebView alloc] init];
-    
     NSString *scriptureUrlMobile = [[bvd scriptureUrl] stringByReplacingOccurrencesOfString:@"www" withString:@"mobile"];
     
-    [webUIView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: scriptureUrlMobile]]];
-    
-    //Trying to setup notification for spinner
-    //[[NSNotificationCenter defaultCenter] addObserver:webUIView selector:@selector() name:WebUIViewRequestLoaded object:webUIView];
-    //
-    
-    [self.view addSubview:webUIView];
+    //Adding new view
+    BibleVersesWebViewController* bibleVersesWebVC = [[BibleVersesWebViewController alloc] initWithUrl:scriptureUrlMobile];
+    [self.navigationController pushViewController:bibleVersesWebVC animated:YES];
+    //end
     [spinner stopAnimating];
     
 }
@@ -112,13 +109,13 @@ UIActivityIndicatorView *spinner;
     
     if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight)
     {
-        NSLog(@"Landscape");
+        //NSLog(@"Landscape");
         [webUIView  setFrame: self.view.bounds];
     }
     
     if (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
     {
-        NSLog(@"Portrait");
+        //NSLog(@"Portrait");
         [webUIView setFrame: self.view.bounds];
     }
     
@@ -127,18 +124,36 @@ UIActivityIndicatorView *spinner;
 
 - (void)webViewDidFinishLoading:(UIWebView *)wv
 {
-    NSLog(@"finished loading");
+    //NSLog(@"finished loading");
 }
 
 -(void) threadStartAnimating: (id) data
 {
     
-    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     [spinner setCenter:self.view.center];
     [self.view addSubview:spinner];
     [spinner startAnimating];
 }
 
+-(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    
+    //TextField
+    UITextView *findUsText = [[UITextView alloc] initWithFrame:self.view.bounds];
+    findUsText.textColor = [UIColor blackColor];
+    findUsText.font = [UIFont systemFontOfSize:14.0];
+    findUsText.text = @"Note: Tapping on a bible verse will redirect you to mobile.biblegateway.com.";
+    findUsText.backgroundColor = [UIColor clearColor];
+    findUsText.editable = FALSE;
+    
+    return findUsText;
+}
 
+
+-(CGFloat)tableView:(UITableView *)tv heightForFooterInSection:(NSInteger)section
+{
+        return 65.0f;
+}
 
 @end

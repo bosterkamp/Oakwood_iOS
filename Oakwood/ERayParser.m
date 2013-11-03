@@ -14,23 +14,24 @@ BOOL needToParse = false;
 BOOL firstTime = true;
 NSString *returnString;
 
+
 - (NSString *)parseXMLFile:(NSString *)url
 {
     
        BOOL success;
     
-    NSLog(@"inside ERayParser parseXMLFile: %@", url);
+    //NSLog(@"inside ERayParser parseXMLFile: %@", url);
     
     NSURL *xmlURL = [NSURL URLWithString: url];
     
-    NSLog(@"xmlURL is: %@", xmlURL);
+    //NSLog(@"xmlURL is: %@", xmlURL);
 
     //if (eRayParser) // eRayParser is an NSXMLParser instance variable
     eRayParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
     
     //verses = [[NSMutableArray alloc] init];
     
-    NSLog(@"eRayParser is %@", eRayParser);
+    //NSLog(@"eRayParser is %@", eRayParser);
     
     //
     [eRayParser setDelegate:self];
@@ -41,14 +42,14 @@ NSString *returnString;
     
     success = [eRayParser parse];
     
-    NSLog(@"Finishing parseXMLFile, success?: %d", success);
+    //NSLog(@"Finishing parseXMLFile, success?: %d", success);
     //NSLog(@"Bible Verse content: %@", verses);
     
     return returnString;
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-    NSLog(@"Did Start Parsing: %@", elementName);
+    //NSLog(@"Did Start Parsing: %@", elementName);
     
     if ([elementName isEqualToString:@"content:encoded"])
     {
@@ -60,22 +61,22 @@ NSString *returnString;
 
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser {
-	NSLog(@"found file and started parsing");
+	//NSLog(@"found file and started parsing");
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-	NSString * errorString = [NSString stringWithFormat:@"Unable to download feed from web site (Error code %i )", [parseError code]];
+	NSString * errorString = [NSString stringWithFormat:@"Unable to retrieve eray.  Please try again later."];
 	NSLog(@"error parsing XML: %@", errorString);
     
-	//UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error loading content" message:errorString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	//[errorAlert show];
+	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error loading content" message:errorString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	[errorAlert show];
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)unparsedString{
 	
     if(needToParse && firstTime)
     {
-        NSLog(@"found characters: %@", unparsedString);
+        //NSLog(@"found characters: %@", unparsedString);
         firstTime = FALSE;
         returnString = unparsedString;
     }
@@ -85,7 +86,7 @@ NSString *returnString;
 - (void)parserDidEndDocument:(NSXMLParser *)parser {
     
     
-	NSLog(@"all done!");
+	//NSLog(@"all done!");
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
