@@ -11,6 +11,7 @@
 #import "ColorConverter.h"
 #import "DevotionalDetails.h"
 #import "BibleVersesWebViewController.h"
+#import "SermonAudioViewController.h"
 
 @interface DevotionSelectionViewController ()
 
@@ -34,14 +35,20 @@
 {
     [super viewDidLoad];
     
-    NSLog(@"inside DevotionSelectionViewController");
+    //NSLog(@"inside DevotionSelectionViewController");
     self.navigationItem.title = @"Devotions";
     [self.tableView setBackgroundColor: [ColorConverter colorFromHexString:@"#FFFFFF"]];
     [self.tableView setOpaque: NO];
     
     DevotionSelectionParser *myParser = [[DevotionSelectionParser alloc] init];
+    
+    //Production...
     tableData = [myParser parseXMLFile:@"http://vimeo.com/channels/299087/videos/rss"];
-
+    
+    //For testing only
+    //tableData = [myParser parseXMLFile:@"/Users/bosterkamp/Desktop/devotions_dates.txt"];
+    //End for testing only
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -98,7 +105,7 @@
     NSMutableString *ddUrl = [[NSMutableString alloc] initWithString:[dd devotionalUrl ]];
     cell.textLabel.text = ddDisplay;
     
-    NSLog(@"Devotional %i: Name: %@ - Url: %@", indexPath.row, ddDisplay, ddUrl);
+    //NSLog(@"Devotional %i: Name: %@ - Url: %@", indexPath.row, ddDisplay, ddUrl);
     
     
     cell.textLabel.numberOfLines = 0;
@@ -144,36 +151,28 @@
 }
 */
 
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //NSLog(@"shouldHighlightRowAtIndexPath");
+    return YES;
+}
+
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"selected table row");
-
-    /*
-    webView = [[UIWebView alloc] /*initWithFrame:CGRectMake(0.0,0.0,1.0,1.0)];*//*initWithFrame:self.view.bounds];
-    webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    webView.delegate = self;
-    */
     DevotionalDetails *dd = [tableData objectAtIndex:indexPath.row];
-/*
-    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[dd devotionalUrl]]]];
-    [self.view addSubview:webView];
-    */
     
     //Adding new view
+    /*
     BibleVersesWebViewController* bibleVersesWebVC = [[BibleVersesWebViewController alloc] initWithUrl:[dd devotionalUrl]];
     [self.navigationController pushViewController:bibleVersesWebVC animated:YES];
-    //end
-    //[spinner stopAnimating];
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+*/
+    SermonAudioViewController* sermonAudioVC = [[SermonAudioViewController alloc] init];
+    sermonAudioVC.launchUrl = [dd devotionalUrl];
+    [self.navigationController pushViewController:sermonAudioVC animated:YES];
+
 }
 
 //This looks pretty good for when two rows are needed.

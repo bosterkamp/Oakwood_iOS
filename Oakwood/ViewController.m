@@ -12,6 +12,7 @@
 #import "SermonSelectionViewController.h"
 #import "BibleVersesViewController.h"
 #import "ERayViewController.h"
+#import "TwitterWebViewController.h"
 
 @interface ViewController ()
 
@@ -128,9 +129,15 @@ int MenuSize = 500;
 - (IBAction)informationRequest:(id)sender;
 {
     UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Oakwood Mobile App"
-                                                   message:@"Bryan Osterkamp - 2013"
+                                                   message:@"Bryan Osterkamp - 2013, 2014"
                                                   delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
     [view show];
+}
+
+- (IBAction)launchWebsite:(id)sender;
+{
+    //[NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.oakwoodnb.com"]];
 }
 
 - (IBAction)loadDevotionals:(id)sender;

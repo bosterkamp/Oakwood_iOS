@@ -22,5 +22,6 @@
 
 - (IBAction)informationRequest:(id)sender;
 - (IBAction)loadDevotionals:(id)sender;
+- (IBAction)launchWebsite:(id)sender;
 
 @end

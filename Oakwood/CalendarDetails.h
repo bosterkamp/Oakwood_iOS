@@ -7,18 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RecurringEventDetails.h"
 
 @interface CalendarDetails : NSObject
 {
     
-    
 }
+
++ (Boolean *)isValid:(CalendarDetails *)objForValidation;
+
 
 @property (copy) NSString *eventStartDate;
 @property (copy) NSString *eventEndDate;
 @property (copy) NSString *eventSummary;
 @property (copy) NSString *eventUrl;
 @property (copy) NSString *eventDescription;
+@property (retain) RecurringEventDetails *recurringEventInfo;
 
 
 @end

@@ -15,8 +15,10 @@
 BOOL insideDevotionalItem = false;
 BOOL insideDevotionalTitle = false;
 BOOL insideDevotionalLink = false;
+BOOL insideDevotionalPubDate = false;
 BOOL insideDevotionalDesc;
 NSString *devotionalTitle;
+NSDate *devotionalPubDate;
 NSMutableString *fullDesc;
 NSMutableArray *devotions;
 DevotionalDetails *dd;
@@ -26,14 +28,15 @@ DevotionalDetails *dd;
     
     BOOL success;
     
+    //Used for production...
     NSURL *xmlURL = [NSURL URLWithString: url];
-
-    
     devotionSelectionParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
     
-    devotions = [[NSMutableArray alloc] init];
+    //Used for testing...
+    //NSData *xmlURL = [NSData dataWithContentsOfFile:url];
+    //devotionSelectionParser = [[NSXMLParser alloc] initWithData:xmlURL];
     
-    NSLog(@"devotionSelectionParser is %@", devotionSelectionParser);
+    devotions = [[NSMutableArray alloc] init];
     
     //
     [devotionSelectionParser setDelegate:self];
@@ -44,7 +47,37 @@ DevotionalDetails *dd;
     
     success = [devotionSelectionParser parse];
     
-    NSLog(@"Devotions in parsed xml %i", [devotions count]);
+    //NSLog(@"Devotions in parsed xml %i", [devotions count]);
+    
+    //pubDate
+    //Now we need to sort them properly (probably need to do this based on publish date...)
+    //NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"devotionalName" ascending:YES];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"devotionalPublishDate" ascending:NO];
+    [devotions sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+    
+    
+    //
+    //Next we sort the contents of the array by event date
+    
+    // The results are likely to be shown to a user
+    // Note the use of the localizedCaseInsensitiveCompare: selector
+    /*NSSortDescriptor *lastDescriptor =
+    [[NSSortDescriptor alloc] initWithKey:eventDate
+                                ascending:YES
+                                 selector:@selector(localizedCaseInsensitiveCompare:)];
+    */
+     /*
+     NSSortDescriptor *firstDescriptor =
+     [[NSSortDescriptor alloc] initWithKey:first
+     ascending:YES
+     selector:@selector(localizedCaseInsensitiveCompare:)];
+     */
+    /*
+    NSArray *descriptors = [NSArray arrayWithObjects:lastDescriptor,nil];
+    sortedArray = [array sortedArrayUsingDescriptors:descriptors];
+    */
+    //
+    
     return devotions;
 }
 
@@ -59,7 +92,11 @@ DevotionalDetails *dd;
     } else if ([elementName isEqualToString:@"title"] && insideDevotionalItem)
     {
         insideDevotionalTitle = true;
-    } else if  ([elementName isEqualToString:@"link"] && insideDevotionalItem)
+    } else if  ([elementName isEqualToString:@"pubDate"] && insideDevotionalItem)
+    {
+        insideDevotionalPubDate = true;
+    }
+    else if  ([elementName isEqualToString:@"link"] && insideDevotionalItem)
     {
         insideDevotionalLink = true;
     }
@@ -95,7 +132,7 @@ DevotionalDetails *dd;
 
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser {
-	NSLog(@"found file and started parsing");
+	//NSLog(@"found file and started parsing");
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
@@ -111,7 +148,7 @@ DevotionalDetails *dd;
     
     if(insideDevotionalItem)
     {
-        NSLog(@"found characters inside item: %@", unparsedString);
+        //NSLog(@"found characters inside item: %@", unparsedString);
         
         
         insideDevotionalItem = true;
@@ -119,7 +156,7 @@ DevotionalDetails *dd;
         
         if (insideDevotionalTitle)
         {
-            NSLog(@"found characters inside title: %@", unparsedString);
+            //NSLog(@"found characters inside title: %@", unparsedString);
                   
             devotionalTitle= unparsedString;
   
@@ -127,11 +164,29 @@ DevotionalDetails *dd;
             
         }
         
+        if (insideDevotionalPubDate)
+        {
+            //map it
+            //NSLog(@"found characters inside pubDate: %@", unparsedString);
+            
+            //devotionalPubDate= unparsedString;
+            
+            //Parse into a date
+            NSDateFormatter* df = [[NSDateFormatter alloc] init];
+            [df setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss ZZZ"];
+            //Fri, 02 Mar 2012 15:20:59 -0500
+            devotionalPubDate = [df dateFromString:unparsedString];
+            //NSLog(@"%@", devotionalPubDate);
+            
+            //we are finished, so set it back to false
+            insideDevotionalPubDate = false;
+        }
+        
         if (insideDevotionalLink)
         {
             
             //Create DevotionalDetails
-            dd = [[DevotionalDetails alloc] init];
+            dd = [[DevotionalDetails alloc] init]; 
             
             
             //Convert the link to the vimeo player link
@@ -161,6 +216,7 @@ DevotionalDetails *dd;
             
             //Populate Devotional Details
             [dd setDevotionalName:devotionalTitle];
+            [dd setDevotionalPublishDate:devotionalPubDate];
             [dd setDevotionalUrl:fullUrl];
             [devotions addObject:dd];
             //
@@ -189,7 +245,7 @@ DevotionalDetails *dd;
 - (void)parserDidEndDocument:(NSXMLParser *)parser {
     
     
-	NSLog(@"all done!");
+	//NSLog(@"all done!");
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName

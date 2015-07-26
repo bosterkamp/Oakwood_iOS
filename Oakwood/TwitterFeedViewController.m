@@ -30,7 +30,7 @@
     // Load the object model via RestKit
     RKObjectManager *objectManager = [RKObjectManager sharedManager];
     
-    [objectManager getObjectsAtPath:@"/status/user_timeline/PastorRayStill"
+    [objectManager getObjectsAtPath:@"/1/statuses/user_timeline/PastorRayStill"
                          parameters:nil
                             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                                 NSArray* statuses = [mappingResult array];
@@ -67,7 +67,7 @@
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
     // Initialize HTTPClient
-    NSURL *baseURL = [NSURL URLWithString:@"https://twitter.com"];
+    NSURL *baseURL = [NSURL URLWithString:@"https://api.twitter.com"];
     AFHTTPClient* client = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
     
     [client setDefaultHeader:@"User-Agent" value:[NSString stringWithFormat:@"%@/%@ (Mac OS X %@)", [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleExecutableKey] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleIdentifierKey], [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey], [[NSProcessInfo processInfo] operatingSystemVersionString]]];
@@ -107,7 +107,7 @@
     // Register our mappings with the provider using a response descriptor
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:statusMapping
                                                                                             method:RKRequestMethodGET
-                                                                                       pathPattern:@"/status/user_timeline/:username"
+                                                                                       pathPattern:@"/1/statuses/user_timeline/:username"
                                                                                            keyPath:nil
                                                                                        statusCodes:[NSIndexSet indexSetWithIndex:200]];
     [objectManager addResponseDescriptor:responseDescriptor];

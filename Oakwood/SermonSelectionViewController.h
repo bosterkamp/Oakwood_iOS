@@ -11,6 +11,7 @@
 @interface SermonSelectionViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UIWebViewDelegate>
 {
     NSArray *tableData;
+    NSArray *tableVideoData;
     UIWebView *webView;
 }
 

@@ -10,6 +10,6 @@
 
 @implementation DevotionalDetails
 
-@synthesize devotionalName, devotionalUrl;
+@synthesize devotionalName, devotionalUrl, devotionalPublishDate;
 
 @end

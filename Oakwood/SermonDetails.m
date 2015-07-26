@@ -10,6 +10,6 @@
 
 @implementation SermonDetails
 
-@synthesize sermonName, sermonUrl;
+@synthesize sermonName, sermonUrl, sermonPublishDate;
 
 @end

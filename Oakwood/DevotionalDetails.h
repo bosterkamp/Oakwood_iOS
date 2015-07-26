@@ -17,5 +17,6 @@
 
 @property (copy) NSString *devotionalName;
 @property (copy) NSString *devotionalUrl;
+@property (copy) NSDate *devotionalPublishDate;
 
 @end

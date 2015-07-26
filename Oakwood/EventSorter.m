@@ -81,7 +81,7 @@
     [array addObject:dict];
    */ 
     
-    //Next we sort the contents of the array by last name then first name
+    //Next we sort the contents of the array by event date
     
     // The results are likely to be shown to a user
     // Note the use of the localizedCaseInsensitiveCompare: selector

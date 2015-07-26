@@ -21,7 +21,7 @@
     NSString *iterationDateStr = [calendarDetails eventStartDate];
     NSString *cdEndDate = [calendarDetails eventEndDate];
    // NSLog(@"Event Start Date: %@", iterationDateStr);
-   // NSLog(@"End Date: %@", cdEndDate);
+    //NSLog(@"End Date: %@", [calendarDetails eventEndDate]);
     
     
     NSDate *updatedDate;
@@ -35,6 +35,9 @@
     // Convert string to date object
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     
+    // Convert string to date object
+    NSDateFormatter *dateFormatRecur = [[NSDateFormatter alloc] init];
+    
     //Create events for each day...
     if ([iterationDateStr rangeOfString:@":"].location == NSNotFound)
     {
@@ -44,30 +47,22 @@
         updatedDate = [dateFormat dateFromString:iterationDateStr];
         
         //NSLog(@"!!Updated Date: %@", [dateFormat stringFromDate: updatedDate]);
-        
     }
     else
     {
         //NSLog(@"###Updated Date Z: %@", iterationDateStr);
         
         //If String contains 'Z', then format this way
-        //[dateFormat setDateFormat:@"yyyyMMdd'T'HHmmss'Z'"];
         [dateFormat setDateFormat:@"EEEE MMMM d, yyyy - h:mm a"];
         
         //No "correction" needed for timezone dates, so just set corrected date directly.
         updatedDate = [dateFormat dateFromString:iterationDateStr];
-        //date = [dateFormat dateFromString:dateStr];
-        //correctedDate = [gregorian dateByAddingComponents:components toDate:date options:0];
-        //[dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"America/Chicago"]];
-        //[dateFormat setDateFormat:@"EEEE MMMM d, YYYY - h:mm a"];
-        
     }
     
     //NSLog(@"Updated Date: %@", [dateFormat stringFromDate: updatedDate]);
     //NSLog(@"End Date: %@", [calendarDetails eventEndDate]);
     
     //Create events for each day
-    
     endDate = [dateFormat dateFromString:cdEndDate];
     today = [dateFormat stringFromDate:now];
     
@@ -80,87 +75,168 @@
     
     //Logging
     //NSLog(@"Updated Date: %@", [dateFormat stringFromDate:updatedDate]);
+    //NSLog(@"End Date String: %@", cdEndDate);
     //NSLog(@"End Date: %@", [dateFormat stringFromDate:endDate]);
 
     
-    while ([updatedDate compare: endDate] == NSOrderedAscending) {
+    //For Recurring Events
+    if ([calendarDetails recurringEventInfo])
+    {
         
-        //Filter out dates before today
-        /*
-        if (![updatedDate compare: now] == NSOrderedAscending)
+        //If the recurring event has an end date
+        if (![[[calendarDetails recurringEventInfo] untilDay] isEqualToString:@""])
         {
-            ed = [[EventDetails alloc] init];
             
-            [ed setEventDate: [dateFormat stringFromDate:updatedDate]];
-            [ed setEventSummary: [calendarDetails eventSummary]];
-            [ed setEventDescription:[calendarDetails eventDescription]];
+            NSString *cdUntilDate = [[calendarDetails recurringEventInfo] untilDay];
             
-            //NSLog(@"Event Date: %@", [ed eventDate]);
-            [createdEvents addObject:ed];
-            //NSLog(@"Then here...");
-
+            //NSCalendar *gregorianRecur = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+            
+            //Formatting
+            cdUntilDate = [EventFormatter formatEvent:cdUntilDate];
+            
+            //Create events for each day...
+            if ([cdUntilDate rangeOfString:@":"].location == NSNotFound)
+            {
+                [dateFormatRecur setDateFormat:@"EEEE MMMM d, yyyy"];
+                endDate = [dateFormatRecur dateFromString:cdUntilDate];
+            }
+            else
+            {
+                //If String contains 'Z', then format this way
+                [dateFormatRecur setDateFormat:@"EEEE MMMM d, yyyy - h:mm a"];
+                
+                //No "correction" needed for timezone dates, so just set corrected date directly.
+                endDate = [dateFormatRecur dateFromString:cdUntilDate];
+            }
+        }
+ 
+        //END If the recurring event has an end date logic
+        
+        //NSLog(@"Inside recurring event");
+        
+        //Add a day
+        int daysToAdd = 1;
+        
+        //Add 7 days if recurrence is weekly
+        if ([@"WEEKLY" isEqualToString:[[calendarDetails recurringEventInfo] eventFrequency]])
+        {
+            daysToAdd = 7;
         }
         
-        //Add a day
-        int daysToAdd = 1;
+        
         
         // set up date components
         NSDateComponents *components = [[NSDateComponents alloc] init];
         [components setDay:daysToAdd];
         
-        updatedDate = [gregorian dateByAddingComponents:components toDate:updatedDate options:0];
-        */
+        
+        if ([[[calendarDetails recurringEventInfo] untilDay] isEqualToString:@""])
+        {
+            // set up end date components and add 30 days.
+            NSDateComponents *endDateComponents = [[NSDateComponents alloc] init];
+            [endDateComponents setDay:90];
+            
+            //Add 3 months to today's date
+            endDate = [gregorian dateByAddingComponents:endDateComponents toDate:endDate options:0];
+        }
+        //NSLog(@"About to start reccur - while");
+        
+        // Starting recurrence code
+        while ([updatedDate compare: endDate] == NSOrderedAscending)
+        {
+            switch ([updatedDate compare:now])
+            {
+                case NSOrderedAscending:
+                    //NSLog(@"NSOrderedAscending");
+                    break;
+                    
+                case NSOrderedSame:
+                    //NSLog(@"NSOrderedSame");
+                    break;
+                    
+                case NSOrderedDescending:
+                    //NSLog(@"NSOrderedDescending");
+                    ed = [[EventDetails alloc] init];
+                    
+                    //only create it if it is before the end date
+                    
+                    [ed setEventDate: [dateFormat stringFromDate:updatedDate]];
+                    [ed setEventSummary: [calendarDetails eventSummary]];
+                    [ed setEventDescription:[calendarDetails eventDescription]];
+                    
+                    //NSLog(@"Event Date: %@", [ed eventDate]);
+                    //NSLog(@"End Date: %@", [dateFormat stringFromDate:endDate]);
+                    //NSLog(@"Now Date: %@", [dateFormat stringFromDate:now]);
+                    [createdEvents addObject:ed];
+                    
+                    break;
+            }
+            /*
+            //Add a day
+            int daysToAdd = 1;
+            
+            // set up date components
+            NSDateComponents *components = [[NSDateComponents alloc] init];
+            [components setDay:daysToAdd];
+            */
+            updatedDate = [gregorian dateByAddingComponents:components toDate:updatedDate options:0];
+            
+            
+        }
+        // End recurrence code
+        
+        //Log that this has recurring event details
+        //NSLog(@"Recurring Event Summary: %@", [calendarDetails eventSummary]);
+        //NSLog(@"Recurring Event Frequency: %@", [[calendarDetails recurringEventInfo] eventFrequency]);
+        
 
-        
-        //NSLog(@"yesterday is: %@", [dateFormat stringFromDate:yesterday]);
-        
-    switch ([updatedDate compare:now])
+    }
+    //For Non-Recurring Events
+    else
     {
-        case NSOrderedAscending:
-            //NSLog(@"NSOrderedAscending");
-            break;
+ 
+        while ([updatedDate compare: endDate] == NSOrderedAscending)
+        {
+            switch ([updatedDate compare:now])
+            {
+                case NSOrderedAscending:
+                    //NSLog(@"NSOrderedAscending");
+                    break;
+                    
+                case NSOrderedSame:
+                    //NSLog(@"NSOrderedSame");
+                    break;
+                    
+                case NSOrderedDescending:
+                    //NSLog(@"NSOrderedDescending");
+                    ed = [[EventDetails alloc] init];
+                    
+                    //only create it if it is before the end date
+                    
+                    [ed setEventDate: [dateFormat stringFromDate:updatedDate]];
+                    [ed setEventSummary: [calendarDetails eventSummary]];
+                    [ed setEventDescription:[calendarDetails eventDescription]];
+                    
+                    //NSLog(@"Event Date: %@", [ed eventDate]);
+                    //NSLog(@"End Date: %@", [dateFormat stringFromDate:endDate]);
+                    //NSLog(@"Now Date: %@", [dateFormat stringFromDate:now]);
+                    [createdEvents addObject:ed];
+                    
+                    break;  
+            }
             
-        case NSOrderedSame:
-            //NSLog(@"NSOrderedSame");
-            break;
-            
-        case NSOrderedDescending:
-            //NSLog(@"NSOrderedDescending");
-            ed = [[EventDetails alloc] init];
-            
-            [ed setEventDate: [dateFormat stringFromDate:updatedDate]];
-            [ed setEventSummary: [calendarDetails eventSummary]];
-            [ed setEventDescription:[calendarDetails eventDescription]];
-            
-            //NSLog(@"Event Date: %@", [ed eventDate]);
-            [createdEvents addObject:ed];
-            
-            break;  
-    }
-        //Add a day
-        int daysToAdd = 1;
-        
-        // set up date components
-        NSDateComponents *components = [[NSDateComponents alloc] init];
-        [components setDay:daysToAdd];
-        
-        updatedDate = [gregorian dateByAddingComponents:components toDate:updatedDate options:0];
+            //Add a day
+            int daysToAdd = 1;
 
-        
+            // set up date components
+            NSDateComponents *components = [[NSDateComponents alloc] init];
+            [components setDay:daysToAdd];
+            
+            updatedDate = [gregorian dateByAddingComponents:components toDate:updatedDate options:0];
+
+            
+        }
     }
-     
-    //While not last day
-    
-    //Create new day CalendarDetail
-    
-    //Setup recurrence of events
-    
-    // and up to 3 months out
-    //NSLog(@"Created Events Number: %lu", (unsigned long)[createdEvents count]);
-    
-    //for (ed in createdEvents) {
-     //   NSLog(@"Date: %@", [ed eventDate]);
-    //}
     
     return createdEvents;
 }

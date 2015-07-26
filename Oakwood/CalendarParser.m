@@ -12,6 +12,7 @@
 #import "EventCreator.h"
 #import "EventSorter.h"
 #import "HTMLNumberDecoder.h"
+#import "RecurringEventDetails.h"
 
 @implementation CalendarParser
 
@@ -23,35 +24,18 @@
     BOOL firstTime = true;
     NSMutableArray *events = [[NSMutableArray alloc] init];
     NSMutableArray *potentialEvents = [[NSMutableArray alloc] init];
-    
-    //NSLog(@"inside Calendar parseXMLFile: %@", url);
       
     NSURL *xmlURL = [NSURL URLWithString: url];
     
-    //NSLog(@"xmlURL is: %@", xmlURL);
-    
-
-    //calendarParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
-    
-    
-    
-    //NSLog(@"calendarParser is %@", calendarParser);
-    
-    /*
-    [calendarParser setDelegate:self];
-    [calendarParser setShouldProcessNamespaces:NO]; // We don't care about namespaces
-    [calendarParser setShouldReportNamespacePrefixes:NO]; //
-    [calendarParser setShouldResolveExternalEntities:NO]; // We just want data, no other stuff
-    */
-    
-    //success = [calendarParser parse];
-    
-    
+    //Used when the application is in prod
     NSData *data = [NSData dataWithContentsOfURL:xmlURL];
+    
+    //Used for testing...
+    //NSData *data = [NSData dataWithContentsOfFile:url];
+    
+    
     NSString *myString = [[NSString alloc] initWithData:data
                                                encoding:NSUTF8StringEncoding];
-    
-    
     
     NSString *caldata = myString;
     
@@ -79,6 +63,15 @@
             NSString *endDate = [[NSString alloc] init];
             NSString *summaryString = [[NSString alloc] init];
             NSString *descString = [[NSString alloc] init];
+            
+            //Recurring Details
+            NSString *frequency = [[NSString alloc] init];
+            NSString *interval = [[NSString alloc] init];
+            NSString *day = [[NSString alloc] init];
+            NSString *untilDay = [[NSString alloc] init];
+            
+            RecurringEventDetails *recurringEventInfo = [[RecurringEventDetails alloc] init];
+            
             Boolean *skipEvent = false;
             descString = @"";
             
@@ -108,6 +101,7 @@
                     startDate = [EventFormatter formatEvent:dateStr];
 
                     //NSLog(@"DTSTART is %@", startDate);
+                    continue;
                 }
                 
                 //DTEnd
@@ -120,10 +114,13 @@
                     
                     NSString *dateEnd = endDate;
                     
+                    //NSLog(@"dateEnd is %@", dateEnd);
+                    
                     //Formatting
                     endDate = [EventFormatter formatEvent:dateEnd];
                     
                     //NSLog(@"DTEND is %@", endDate);
+                    continue;
                 }
                 
                 //RRULE - For now we want to skip over it, until we understand the rules better.
@@ -131,10 +128,62 @@
                 if ([parsedLineElement rangeOfString:rrule].location != NSNotFound)
                 {
                     
-                    //summaryString = [[parsedLineElement componentsSeparatedByString:@"SUMMARY:"] objectAtIndex:1];
-                    skipEvent = true;
-                    //NSLog(@"RRULE line");// is %@", summaryString);
+                    
+                    
+                    
+                    NSString *rruleString =[[parsedLineElement componentsSeparatedByString:@"RRULE:"] objectAtIndex:1];
+                    NSArray *semicolonSplit = [rruleString componentsSeparatedByString:@";"];
+        
+                    @try {
+                        
+                        
+                        //TODO loop through all the delimiters
+                        
+                        //TODO check for the actual value and not just delimiters...
+                        //Check to see if there is an end date
+                        if (semicolonSplit.count == 3)
+                        {
+                            //NSLog(@"semicolonSplit %i", semicolonSplit.count);
+                            
+                            frequency = [[semicolonSplit[0] componentsSeparatedByString:@"FREQ="] objectAtIndex:1];
+                            interval = [[semicolonSplit[1] componentsSeparatedByString:@"INTERVAL="] objectAtIndex:1];
+                            day = [[semicolonSplit[2] componentsSeparatedByString:@"BYDAY="] objectAtIndex:1];
+                        }
+                        else if (semicolonSplit.count == 4)
+                        {
+                            frequency = [[semicolonSplit[0] componentsSeparatedByString:@"FREQ="] objectAtIndex:1];
+                            untilDay = [[semicolonSplit[1] componentsSeparatedByString:@"UNTIL="] objectAtIndex:1];
+                            interval = [[semicolonSplit[2] componentsSeparatedByString:@"INTERVAL="] objectAtIndex:1];
+                            day = [[semicolonSplit[3] componentsSeparatedByString:@"BYDAY="] objectAtIndex:1];
+                        }
+                        
+                        //skipEvent = true;
+                        
+                        //recurringEventInfo = [[RecurringEventDetails alloc] init];
+                        [recurringEventInfo setEventFrequency:frequency];
+                        [recurringEventInfo setEventInterval:interval];
+                        [recurringEventInfo setEventDay:day];
+                        [recurringEventInfo setUntilDay:untilDay];
+                        
+                    }
+                    @catch (NSException *exception) {
+                        NSLog(@"Exception Thrown");
+                        NSLog( @"Name: %@", exception.name);
+                        NSLog( @"Reason: %@", exception.reason );
+                        //Just swallow it, so the app doesn't blow up.
+                    }
+                    @finally {
+                       
+                    }
+
+
+
+                    
+                    continue;
+                    
                 }
+                
+                
                 
                 //Summary
                 //NSString *summaryString = [[NSString alloc] init];
@@ -146,6 +195,7 @@
                     summaryString = [HTMLNumberDecoder decodeString:summaryString];
                     
                     //NSLog(@"Summary is %@", summaryString);
+                    continue;
                 }
                 
                 //Description
@@ -154,24 +204,44 @@
                 if ([parsedLineElement rangeOfString:desc].location != NSNotFound)
                 {
                     descString = [[parsedLineElement componentsSeparatedByString:@"DESCRIPTION:"] objectAtIndex:1];
-                    
+                    continue;
                    // NSLog(@"DESCRIPTION is %@", descString);
                 }
-
-
-                [cd setEventStartDate:startDate];
-                [cd setEventSummary:summaryString];
-                [cd setEventEndDate:endDate];
-                [cd setEventDescription:descString];
                 
-                //Don't create events if the description is blank or it is an event we need to skip
-                if (![[cd eventDescription] isEqualToString:@""] || skipEvent)
+                //End of Event
+                NSString *endEvent = @"END:VEVENT";
+                if ([parsedLineElement rangeOfString:endEvent].location != NSNotFound)
                 {
-                    [potentialEvents addObjectsFromArray:[EventCreator createEvents:cd]];
-                    //NSLog(@"Events Number: %lu", (unsigned long)[potentialEvents count]);
+                
+                    //We should only do this when the object is fully built...
+     
+                    [cd setEventStartDate:startDate];
+                    [cd setEventSummary:summaryString];
+                    [cd setEventEndDate:endDate];
+                    [cd setEventDescription:descString];
 
-                    //Break out because we have completed this event
-                    break;
+                    //Only set if this is a recurring event
+                    if ([recurringEventInfo eventFrequency])
+                    {
+                        [cd setRecurringEventInfo:recurringEventInfo];
+                        
+                        //NSLog(@"Recurring Freq= %@", [[cd recurringEventInfo] eventFrequency]);
+
+                    }
+                    else
+                    {
+                        //NSLog(@"NO FREQ SET");
+                    }
+                    
+                    //Don't create events if the summary is blank or it is an event we need to skip
+                    if (![[cd eventSummary] isEqualToString:@""] || skipEvent)
+                    {
+                        [potentialEvents addObjectsFromArray:[EventCreator createEvents:cd]];
+                        //NSLog(@"Events Number: %lu", (unsigned long)[potentialEvents count]);
+
+                        //Break out because we have completed this event
+                        break;
+                    }
                 }
                 
                 
@@ -188,11 +258,14 @@
             }
             
             //Check for duplicate
-            if (!duplicate)
-            {
+            //Removed duplicate check until I can add more logic to check string AND date to determine duplicates.
+            
+            //if (!duplicate)
+            //{
                 //NSLog(@"Adding objects");
                 [events addObjectsFromArray:potentialEvents];
-            }
+            //}
+            
             potentialEvents = [[NSMutableArray alloc] init];
             
         }

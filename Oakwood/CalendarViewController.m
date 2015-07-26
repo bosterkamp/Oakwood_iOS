@@ -37,9 +37,13 @@
     [self.tableView setBackgroundColor: [ColorConverter colorFromHexString:@"#FFFFFF"]];
     [self.tableView setOpaque: NO];
     
-    //Commented out until I get the calendar parsing working...
     myParser = [[CalendarParser alloc] init];
-    /*NSMutableArray *calendar*/  tableData = [myParser parseXMLFile:@"http://oakwoodnb.com/calendars/all/feed/ical/"];
+    
+    //Call the url to get the data
+    //tableData = [myParser parseXMLFile:@"/Users/bosterkamp/Desktop/believe_dates.txt"];
+    //tableData = [myParser parseXMLFile:@"/Users/bosterkamp/Desktop/mod_rrule_end_date.txt"];
+    //tableData = [myParser parseXMLFile:@"/Users/bosterkamp/Desktop/mod_rrule_proper_end_date.txt"];
+    tableData = [myParser parseXMLFile:@"http://oakwoodnb.com/calendars/all/feed/ical/"];
     
     
 }

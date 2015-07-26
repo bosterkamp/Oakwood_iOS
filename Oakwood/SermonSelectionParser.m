@@ -13,6 +13,8 @@
 
 BOOL insideItem = false;
 BOOL insideTitle = false;
+BOOL insideSermonPubDate = false;
+NSDate *sermonPubDate;
 NSMutableArray *sermons;
 SermonDetails *sd;
 
@@ -23,11 +25,30 @@ SermonDetails *sd;
     
     //NSLog(@"inside SermonSelectionParser parseXMLFile: %@", url);
     
-    NSURL *xmlURL = [NSURL URLWithString: url];
+    
     
     //NSLog(@"xmlURL is: %@", xmlURL);
     
-    sermonSelectionParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
+    //Used for production
+    NSURL *xmlURL = [NSURL URLWithString: url];
+    NSData *xmlURLdata = [NSData dataWithContentsOfURL:xmlURL];
+    //sermonSelectionParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
+    
+    //Used for testing...
+    //NSData *xmlURLdata = [NSData dataWithContentsOfFile:url];
+    
+    
+    
+    NSString* responseString = [[NSString alloc] initWithData:xmlURLdata encoding:NSUTF8StringEncoding];
+    //NSLog(@"full xml, %@", responseString);
+    
+    //Replace the apostrophe - this is what you call a hack... ugly isn't it?!
+    responseString = [responseString stringByReplacingOccurrencesOfString:@"’" withString:@"\'"];
+    responseString = [responseString stringByReplacingOccurrencesOfString:@"'" withString:@"\'"];
+    
+    //NSLog(@"full xml, %@", responseString);
+    
+    sermonSelectionParser = [[NSXMLParser alloc] initWithData:[responseString dataUsingEncoding:NSUTF8StringEncoding]];
     
     sermons = [[NSMutableArray alloc] init];
     
@@ -55,10 +76,17 @@ SermonDetails *sd;
     {
         
         insideItem = true;
+        //NSLog(@"insideItem");
         
     } else if ([elementName isEqualToString:@"title"] && insideItem)
     {
         insideTitle = true;
+        //NSLog(@"insideTitle");
+
+    } else if  ([elementName isEqualToString:@"pubDate"] && insideItem)
+    {
+        insideSermonPubDate = true;
+         //NSLog(@"insideSermonPubDate");
     }
     
     //check for URL
@@ -67,15 +95,68 @@ SermonDetails *sd;
     {
         
         NSString *sermonUrl = [attributeDict objectForKey:@"url"];
+        
+        @try {
+
+            
+            
+        //let's generate random errors --- for testing only!
+        /*
+            int x = arc4random() % 100;
+            
+            NSLog(@"Random Number: %i", x);
+            
+            if (x > 75)
+            {
+                
+                NSException* myException = [NSException
+                                            exceptionWithName:@"Concocted exception"
+                                            reason:@"Random number"
+                                            userInfo:nil];
+                @throw myException;
+            }
+        */
         //NSLog(@"sermonUrl: %@", sermonUrl);
         [sd setSermonUrl:sermonUrl];
+        
+        
+        //Don't add it unless the URL has a proper date
+        
+        //NSLog(@"URL: %@", sermonUrl);
+        
+        NSArray *slashSplit = [sermonUrl componentsSeparatedByString:@"/"];
+        NSString *fileString = [slashSplit objectAtIndex:(slashSplit.count - 1)];
+        NSArray *fileSplit = [fileString componentsSeparatedByString:@"."];
+        NSString *dateString = [fileSplit objectAtIndex:0];
+        //NSLog(@"Parsed Date: %@", dateString);
+        
+        //Gotta convert the date to a different format
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyyMMdd"];
+        NSDate *date = [formatter dateFromString:dateString];
+        [formatter setDateFormat:@"MM/dd/yyyy"];
+        NSString *newDate = [formatter stringFromDate:date];
+        
+        //End "don't add"
+        
         [sermons addObject:sd];
+            
+            
+        }
+        @catch (NSException *exception) {
+            //Just swallow the error.
+            //NSLog(@"sermonUrl: %@", sermonUrl);
+
+        }
+        @finally {
+            
+        }
     }
 }
 
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser {
-	NSLog(@"found file and started parsing");
+	//NSLog(@"found file and started parsing");
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
@@ -115,9 +196,29 @@ SermonDetails *sd;
             //[sermons addObject:sd];
             //
             
-            insideItem = false;
+            //insideItem = false;
             insideTitle = false;
             
+        }
+        
+        if (insideSermonPubDate)
+        {
+            //map it
+            //NSLog(@"found characters inside pubDate: %@", unparsedString);
+            
+            //devotionalPubDate= unparsedString;
+            
+            //Parse into a date
+            NSDateFormatter* df = [[NSDateFormatter alloc] init];
+            [df setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss ZZZ"];
+            //Fri, 02 Mar 2012 15:20:59 -0500
+            sermonPubDate = [df dateFromString:unparsedString];
+            [sd setSermonPublishDate:sermonPubDate];
+            //NSLog(@"Sermon Published Date: %@", sermonPubDate);
+            
+            //we are finished, so set it back to false
+            insideSermonPubDate = false;
+            insideItem = false;
         }
         
         
@@ -134,7 +235,7 @@ SermonDetails *sd;
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
-    insideItem = false;
+    //insideItem = false;
 }
 
 @end

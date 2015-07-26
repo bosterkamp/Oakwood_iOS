@@ -20,6 +20,7 @@
 @synthesize launchUrl;
 
 bool launchedSermon = false;
+int16_t isLoaded = 0;
 
 //MPMoviePlayerController *moviePlayerController;
 
@@ -34,8 +35,13 @@ bool launchedSermon = false;
 
 - (void)viewDidLoad
 {
+    
+    
     [super viewDidLoad];
     launchedSermon = false;
+    
+    NSLog(@"viewDidLoad!");
+    isLoaded = 0;
     
     //Setting up audio mode
     
@@ -77,20 +83,6 @@ bool launchedSermon = false;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayerController];
     
     //[moviePlayerController.view setFrame:CGRectMake(38,100,250,163)];
-    
-    
-    //CWORKING
-    
-    [moviePlayerController.view setFrame: self.view.bounds];
-    moviePlayerController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [moviePlayerController.view setBackgroundColor:[ColorConverter colorFromHexString:@"#FFFFFF"]];
-    [self.view addSubview:moviePlayerController.view];
-    
-     //WORKING
-    
-    [moviePlayerController setFullscreen:YES animated:NO];
-    moviePlayerController.controlStyle = MPMovieControlStyleFullscreen;
-    [moviePlayerController play];
 
      
      
@@ -138,7 +130,7 @@ bool launchedSermon = false;
 
 - (void)moviePlayBackDidFinish:(NSNotification *)notification {
     
-    NSLog(@"inside playbackdidfinish");
+    //NSLog(@"inside playbackdidfinish");
     
     MPMoviePlayerController *theMovie = [notification object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -150,7 +142,7 @@ bool launchedSermon = false;
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     //[moviePlayerController stop];
-    NSLog(@"viewDidDisappear");
+    //NSLog(@"viewDidDisappear");
     launchedSermon = true;
 }
 
@@ -162,13 +154,13 @@ bool launchedSermon = false;
 - (void) viewDidAppear:(BOOL)animated
 {
     //Make sure the activity indicator stops animating if we go back.
-    NSLog(@"viewDidAppear");
-    NSLog(@"Launched Sermon: %d", launchedSermon);
+    //NSLog(@"viewDidAppear");
+    //NSLog(@"Launched Sermon: %d", launchedSermon);
     
     if (launchedSermon)
     {
         //[self.parentViewController dismissModalViewControllerAnimated:YES];
-        NSLog(@"going back!");
+        //NSLog(@"going back!");
         [self.navigationController popViewControllerAnimated:YES];
     }
     
@@ -178,13 +170,27 @@ bool launchedSermon = false;
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     
     // Do whatever you want here
-     NSLog(@"webViewDidStartLoad!");
+     //NSLog(@"webViewDidStartLoad!");
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     // Do whatever you want here
-    NSLog(@"webViewDidFinishLoad!");
+    //NSLog(@"webViewDidFinishLoad!");
+}
+
+- (BOOL)webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType {
+    //NSLog(@"Is loaded %d", isLoaded);
+    
+    if(isLoaded > 2 || inType != UIWebViewNavigationTypeOther) {
+        [[UIApplication sharedApplication] openURL:[inRequest URL]];
+        //NSLog(@"returning no!");
+        return NO;
+    }
+    //NSLog(@"returning yes!");
+    //isLoaded = YES;
+    isLoaded ++;
+    return YES;
 }
 
 @end

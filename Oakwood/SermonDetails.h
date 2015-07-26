@@ -16,5 +16,7 @@
 
 @property (copy) NSString *sermonName;
 @property (copy) NSString *sermonUrl;
+@property (copy) NSDate *sermonPublishDate;
+
 
 @end

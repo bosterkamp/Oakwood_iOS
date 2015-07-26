@@ -60,13 +60,40 @@ UIActivityIndicatorView *spinner;
     // Dispose of any resources that can be recreated.
 }
 
+
+//Trying some things...
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSInteger retVal = 1;
+    if (0 == section)
+    {
+        retVal = [tableData count] - 1;
+    }
+    if (1 == section)
+    {
+        retVal = 1;
+    }
+    
+    return retVal;
+    
+}
+//
+
+/*
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [tableData count];
 }
+ */
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     static NSString *simpleTableIdentifier = @"SimpleTableItem";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
@@ -75,31 +102,69 @@ UIActivityIndicatorView *spinner;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     
+    if (indexPath.section == 0)
+    {
+
+        BibleVerseDetails *bvd = [tableData objectAtIndex:indexPath.row];
+        NSMutableString *bvdDisplay = [[NSMutableString alloc] initWithString:[bvd dayOfWeek]];
+        [bvdDisplay appendString: @": "];
+        [bvdDisplay appendString: [bvd scriptureReference]];
+        
+        
+        cell.textLabel.text = bvdDisplay;
+    }
     
-    BibleVerseDetails *bvd = [tableData objectAtIndex:indexPath.row];
-    NSMutableString *bvdDisplay = [[NSMutableString alloc] initWithString:[bvd dayOfWeek]];
-    [bvdDisplay appendString: @": "];
-    [bvdDisplay appendString: [bvd scriptureReference]];
-     
+    if (indexPath.section == 1)
+    {
+        NSInteger lastOne = [tableData count] - 1;
+        BibleVerseDetails *memVerse =[tableData objectAtIndex:lastOne];
+        NSMutableString *scriptureDisplay = [[NSMutableString alloc] initWithString:[memVerse scriptureReference] ];
+        
+        //[disclaimerDisplay appendString:[memVerse scriptureReference]];
+        [scriptureDisplay appendString:@"\nNote: Tapping on a bible verse will redirect you to mobile.biblegateway.com."];
+        cell.textLabel.font = [UIFont systemFontOfSize:14.0];
+        cell.textLabel.numberOfLines = 0;
+        cell.userInteractionEnabled = false;
+        cell.textLabel.text = scriptureDisplay;
+    }
     
-    cell.textLabel.text = bvdDisplay;
+
     return cell;
 }
 
+-(CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat height = 50;
+    
+    if (indexPath.section == 1)
+    {
+        height = 150;
+    }
+
+    
+    return height;
+}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //Create new thread to show activity indicator
-    [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    BibleVerseDetails *bvd = [tableData objectAtIndex:indexPath.row];
+    if (indexPath.section == 0)
+    {
+        
+        //Create new thread to show activity indicator
+        [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        BibleVerseDetails *bvd = [tableData objectAtIndex:indexPath.row];
+        
+        NSString *scriptureUrlMobile = [[bvd scriptureUrl] stringByReplacingOccurrencesOfString:@"www" withString:@"mobile"];
+        
+        //Adding new view
+        BibleVersesWebViewController* bibleVersesWebVC = [[BibleVersesWebViewController alloc] initWithUrl:scriptureUrlMobile];
+        [self.navigationController pushViewController:bibleVersesWebVC animated:YES];
+        //end
+        [spinner stopAnimating];
+    }
     
-    NSString *scriptureUrlMobile = [[bvd scriptureUrl] stringByReplacingOccurrencesOfString:@"www" withString:@"mobile"];
-    
-    //Adding new view
-    BibleVersesWebViewController* bibleVersesWebVC = [[BibleVersesWebViewController alloc] initWithUrl:scriptureUrlMobile];
-    [self.navigationController pushViewController:bibleVersesWebVC animated:YES];
-    //end
-    [spinner stopAnimating];
     
 }
 
@@ -135,7 +200,7 @@ UIActivityIndicatorView *spinner;
     [self.view addSubview:spinner];
     [spinner startAnimating];
 }
-
+/*
 -(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     
@@ -155,5 +220,5 @@ UIActivityIndicatorView *spinner;
 {
         return 65.0f;
 }
-
+*/
 @end

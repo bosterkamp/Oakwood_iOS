@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RecurringEventDetails.h"
 
 @interface EventDetails : NSObject {
     
@@ -17,5 +18,6 @@
 @property (copy) NSString *eventSummary;
 @property (copy) NSString *eventUrl;
 @property (copy) NSString *eventDescription;
+
 
 @end

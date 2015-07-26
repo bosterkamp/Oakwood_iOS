@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="f2g-PR-b4N">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="f2g-PR-b4N">
     <dependencies>
-        <deployment defaultVersion="1552" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <scenes>
         <!--Find Us View Controller-->
@@ -25,6 +25,25 @@
             </objects>
             <point key="canvasLocation" x="391" y="-588"/>
         </scene>
+        <!--Twitter Web View Controller-->
+        <scene sceneID="TCR-5h-lec">
+            <objects>
+                <viewController id="7KK-h9-dqZ" customClass="TwitterWebViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1Qb-Fp-x2a"/>
+                        <viewControllerLayoutGuide type="bottom" id="jQn-bN-Lbw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cQO-WZ-bBe">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="qj4-aW-bWJ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YcH-hi-ibn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="974" y="-583"/>
+        </scene>
         <!--Twitter Feed View Controller-->
         <scene sceneID="VAR-J9-ZoZ">
             <objects>
@@ -35,7 +54,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="br3-a1-4Gc">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="br3-a1-4Gc" id="Si0-14-xfj">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -55,9 +74,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ELF-bB-tcq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="959" y="-555"/>
+            <point key="canvasLocation" x="1377" y="-588"/>
         </scene>
-        <!--View Controller - Oakwood Mobile-->
+        <!--Oakwood Mobile-->
         <scene sceneID="5">
             <objects>
                 <viewController id="2" customClass="ViewController" sceneMemberID="viewController">
@@ -106,7 +125,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="T7T-wR-wmM" kind="push" id="Gr4-iy-PZm"/>
+                                                    <segue destination="T7T-wR-wmM" kind="push" id="IYH-xB-hJI"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1K5-Ow-TCI" userLabel="Button - events">
@@ -140,7 +159,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="CuC-lE-2mI" kind="push" id="hGG-xs-WIa"/>
+                                                    <segue destination="7KK-h9-dqZ" kind="push" identifier="twitterWeb" id="ZIQ-Ga-M5w"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ok6-ua-rbq" userLabel="Button - find us">
@@ -164,24 +183,28 @@
                                                 <rect key="frame" x="142" y="234" width="37" height="37"/>
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </activityIndicatorView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R3M-H7-v5o" userLabel="Button - developer info">
-                                                <rect key="frame" x="149" y="401" width="22" height="22"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal">
-                                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <button opaque="NO" contentMode="scaleAspectFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cVa-c6-flU">
+                                                <rect key="frame" x="0.0" y="446" width="320" height="30"/>
+                                                <state key="normal" title="Launch oakwoodnb.com"/>
+                                                <connections>
+                                                    <action selector="launchWebsite:" destination="2" eventType="touchUpInside" id="7JP-qT-Ijt"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7H-MN-rPa">
+                                                <rect key="frame" x="0.0" y="373" width="320" height="81"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" image="devotionsbtn.png">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="highlighted">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
                                                 <connections>
-                                                    <action selector="informationRequest:" destination="2" eventType="touchUpInside" id="A3G-J3-49z"/>
+                                                    <segue destination="Hyt-sy-rOD" kind="push" id="pqo-K4-hcn"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="Ppi-EK-GkC" firstAttribute="centerY" secondItem="kQQ-B7-iMg" secondAttribute="centerY" id="1q0-F9-UVP"/>
+                                            <constraint firstAttribute="centerX" secondItem="h7H-MN-rPa" secondAttribute="centerX" id="508-7d-tU8"/>
                                             <constraint firstItem="1K5-Ow-TCI" firstAttribute="top" secondItem="kQQ-B7-iMg" secondAttribute="top" constant="161" id="7c0-7j-YIW"/>
                                             <constraint firstItem="jDM-XC-EzN" firstAttribute="trailing" secondItem="kQQ-B7-iMg" secondAttribute="trailing" id="7zo-YF-RZB"/>
                                             <constraint firstItem="Ppi-EK-GkC" firstAttribute="top" secondItem="kQQ-B7-iMg" secondAttribute="top" constant="234" id="8FK-xd-Q5G"/>
@@ -195,9 +218,8 @@
                                             <constraint firstItem="1K5-Ow-TCI" firstAttribute="trailing" secondItem="kQQ-B7-iMg" secondAttribute="trailing" id="jZy-3b-tHa"/>
                                             <constraint firstAttribute="bottom" secondItem="Ok6-ua-rbq" secondAttribute="bottom" constant="122" id="lbX-0O-eaY"/>
                                             <constraint firstItem="aJc-HR-MLS" firstAttribute="top" secondItem="kQQ-B7-iMg" secondAttribute="top" constant="230" id="lrC-Q7-pYg"/>
-                                            <constraint firstItem="R3M-H7-v5o" firstAttribute="centerX" secondItem="Ok6-ua-rbq" secondAttribute="centerX" id="n2Y-T9-eB6"/>
-                                            <constraint firstAttribute="bottom" secondItem="R3M-H7-v5o" secondAttribute="bottom" constant="82" id="r34-7C-2bB"/>
                                             <constraint firstItem="jDM-XC-EzN" firstAttribute="leading" secondItem="kQQ-B7-iMg" secondAttribute="leading" id="t1R-nE-8Jn"/>
+                                            <constraint firstAttribute="centerX" secondItem="cVa-c6-flU" secondAttribute="centerX" id="t7e-Ia-65l"/>
                                             <constraint firstItem="aJc-HR-MLS" firstAttribute="leading" secondItem="kQQ-B7-iMg" secondAttribute="leading" id="v7H-yY-dhV"/>
                                             <constraint firstItem="jDM-XC-EzN" firstAttribute="top" secondItem="kQQ-B7-iMg" secondAttribute="top" constant="20" symbolic="YES" id="vhd-fT-mPJ"/>
                                             <constraint firstItem="1K5-Ow-TCI" firstAttribute="leading" secondItem="kQQ-B7-iMg" secondAttribute="leading" id="wcC-3M-ihI"/>
@@ -232,7 +254,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="729" y="209"/>
+            <point key="canvasLocation" x="677" y="233"/>
         </scene>
         <!--Devotion Selection View Controller-->
         <scene sceneID="yex-6Y-iAh">
@@ -244,7 +266,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="TIo-3A-gJV">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TIo-3A-gJV" id="KcY-Og-cvn">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -263,6 +285,39 @@
             </objects>
             <point key="canvasLocation" x="1722" y="1144"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="Jr6-ui-ELK">
+            <objects>
+                <viewController id="ZHe-3B-BEC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="U4I-ac-UUO"/>
+                        <viewControllerLayoutGuide type="bottom" id="c5Y-wu-cqL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7iW-55-S2x">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1u1-x5-JUK">
+                                <rect key="frame" x="32" y="124" width="256" height="187"/>
+                                <state key="normal" title="Audio">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m69-d7-Ght">
+                                <rect key="frame" x="32" y="319" width="256" height="229"/>
+                                <state key="normal" title="Video">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="glY-8o-gv1"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ucw-C5-VId" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1564" y="299"/>
+        </scene>
         <!--Sermon Audio View Controller-->
         <scene sceneID="PSj-Lu-TQl">
             <objects>
@@ -280,13 +335,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tfa-ej-q7F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1806" y="353"/>
+            <point key="canvasLocation" x="2222" y="267"/>
         </scene>
         <!--Sermon Selection View Controller-->
         <scene sceneID="Ntg-aY-KvP">
             <objects>
                 <tableViewController id="T7T-wR-wmM" customClass="SermonSelectionViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="sQg-QU-J4g">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="sQg-QU-J4g">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -312,7 +367,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8PX-ud-htj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1558" y="-429"/>
+            <point key="canvasLocation" x="1792" y="-588"/>
         </scene>
         <!--Bible Verses View Controller-->
         <scene sceneID="oyf-SX-d2n">
@@ -453,7 +508,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7xa-uB-k8s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2105" y="-502"/>
+            <point key="canvasLocation" x="2245" y="-588"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qq3-ZR-655">
@@ -476,6 +531,7 @@
     </scenes>
     <resources>
         <image name="dailyversesbtn.png" width="267" height="83"/>
+        <image name="devotionsbtn.png" width="267" height="83"/>
         <image name="eventsbtn.png" width="267" height="83"/>
         <image name="findusbtn.png" width="267" height="83"/>
         <image name="raytweetsbtn.png" width="267" height="83"/>
